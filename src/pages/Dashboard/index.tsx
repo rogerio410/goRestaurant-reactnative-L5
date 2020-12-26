@@ -64,18 +64,11 @@ const Dashboard: React.FC = () => {
     async function loadFoods(): Promise<void> {
       // Load Foods from API
       let response;
-      if (searchValue && selectedCategory) {
-        response = await api.get(
-          `/foods?category=${selectedCategory}&name_like=${searchValue}`,
-        );
-      } else if (selectedCategory) {
-        response = await api.get(`/foods?category=${selectedCategory}`);
-      } else if (searchValue) {
-        response = await api.get(`/foods?name_like=${searchValue}`);
+      if (selectedCategory) {
+        response = await api.get(`/foods?category_like=${selectedCategory}`);
       } else {
-        response = await api.get(`/foods`);
+        response = await api.get(`/foods?name_like=${searchValue}`);
       }
-
       setFoods(response.data);
     }
 
